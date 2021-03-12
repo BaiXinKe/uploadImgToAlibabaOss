@@ -1,16 +1,16 @@
 #ifndef CONCREATE_OPER_HPP
 #define CONCREATE_OPER_HPP
 #include <memory>
+#include <iostream>
+#include <alibabacloud/oss/OssClient.h>
 
-namespace AlibabaCloud::OSS{
-    class OssClient;
-};
 
 struct AccountMSG;
 
 class OperatorForOss{
 public:
-    OperatorForOss(std::shared_ptr<AccountMSG> account, const ClientConfiguration& conf);
+    OperatorForOss(std::shared_ptr<AccountMSG> account, const AlibabaCloud::OSS::ClientConfiguration& conf);
+    bool isConnect() const;
     void upload_file();
     void create_dir();
     void download_file();
@@ -24,6 +24,7 @@ private:
         std::cin >> filename;
         return filename;
     }
+    std::shared_ptr<AccountMSG> accountMsg;
     std::unique_ptr<AlibabaCloud::OSS::OssClient> client;
 };
 
